@@ -267,6 +267,38 @@ CREATE TABLE Lot(
    FOREIGN KEY(LocationID, StorageID) REFERENCES Storage(LocationID, StorageID),
    FOREIGN KEY(ProductID) REFERENCES Product(ProductID)
 );
+CREATE TABLE TransportTask(
+   TaskHeaderID INT,
+   TaskItemsID INT,
+   Support VARCHAR(20) ,
+   CreatedBy VARCHAR(50) ,
+   UpdatedBy VARCHAR(50) ,
+   CreatedTime VARCHAR(50) ,
+   UpdatedTime DATETIME2,
+   DestinationArea INT,
+   SourceArea INT,
+   PRIMARY KEY(TaskHeaderID, TaskItemsID),
+   FOREIGN KEY(TaskHeaderID, TaskItemsID) REFERENCES TaskItems(TaskHeaderID, TaskItemsID),
+   FOREIGN KEY(DestinationArea) REFERENCES WorkArea(WorkAreaID),
+   FOREIGN KEY(SourceArea) REFERENCES WorkArea(WorkAreaID)
+);
+
+CREATE TABLE LoadingTask(
+   TaskHeaderID INT,
+   TaskItemsID INT,
+   Product VARCHAR(50)  NOT NULL,
+   Qty FLOAT NOT NULL,
+   Support VARCHAR(50) ,
+   CreatedBy VARCHAR(50) ,
+   UpdatedBy VARCHAR(50) ,
+   CreatedTime DATETIME2,
+   UpdatedTime DATETIME2,
+   AreaForLoading INT,
+   PRIMARY KEY(TaskHeaderID, TaskItemsID),
+   FOREIGN KEY(TaskHeaderID, TaskItemsID) REFERENCES TaskItems(TaskHeaderID, TaskItemsID),
+   FOREIGN KEY(AreaForLoading) REFERENCES WorkArea(WorkAreaID)
+);
+
 
 CREATE TABLE TaskItemDependency(
    TaskHeaderID_DependOn INT,
